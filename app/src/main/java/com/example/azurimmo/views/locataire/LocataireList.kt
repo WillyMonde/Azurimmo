@@ -1,4 +1,4 @@
-package com.example.azurimmo.views.batiment
+package com.example.azurimmo.views.locataire
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,18 +9,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.azurimmo.viewsmodel.batiment.BatimentViewModel
+import com.example.azurimmo.viewsmodel.locataire.LocataireViewModel
 
 @Composable
-fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
-    // Observer les données de manière réactive
-    val batiments by viewModel.batiments.collectAsState()
+fun LocataireList(viewModel: LocataireViewModel = viewModel()) {
+    val locataires by viewModel.locataires.collectAsState()
 
-    LazyColumn(
-        modifier = Modifier.padding(8.dp)
-    ) {
-        items(batiments) { batiment ->
-            BatimentCard(batiment = batiment)
+    LazyColumn(modifier = Modifier.padding(8.dp)) {
+        items(locataires) { locataire ->
+            LocataireCard(locataire = locataire)
         }
     }
 }
