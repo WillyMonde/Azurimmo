@@ -8,6 +8,9 @@ import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
 import com.example.azurimmo.views.appartement.AppartementList
 import com.example.azurimmo.views.batiment.BatimentList
+import com.example.azurimmo.views.contrat.ContratList
+import com.example.azurimmo.views.locataire.LocataireList
+import com.example.azurimmo.views.paiement.PaiementList
 
 @Composable
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -23,13 +26,13 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             AppartementList()
         }
         composable("contrats_list") {
-            Text("Page contrats")
+            ContratList()
         }
         composable("locataires_list") {
-            Text("Page locataires")
+            LocataireList()
         }
         composable("paiements_list") {
-            Text("Page paiements")
+            PaiementList()
         }
     }
 }
