@@ -20,8 +20,14 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         modifier = modifier
     ) {
         composable("batiments_list") {
-            BatimentList()
+            BatimentList(navController = navController)
         }
+
+        composable("appartements_list?batimentId={batimentId}") { backStackEntry ->
+            val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
+            AppartementList(batimentId = batimentId)
+        }
+
         composable("appartements_list") {
             AppartementList()
         }

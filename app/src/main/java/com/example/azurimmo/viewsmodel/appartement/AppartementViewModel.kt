@@ -29,7 +29,7 @@ class AppartementViewModel : ViewModel() {
     }
 
     // Fonction pour simuler le chargement de appartement
-    private fun getAppartements() {
+    fun getAppartements() {
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = null  // Réinitialise l'erreur avant l'appel
@@ -42,6 +42,22 @@ class AppartementViewModel : ViewModel() {
             } finally {
                 _isLoading.value = false
                 println("Chargement terminé")
+            }
+        }
+    }
+    fun getAppartementsByBatiment(batimentId: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = null  // Réinitialise l'erreur avant l'appel
+            try {
+                val response = RetrofitInstance.api.getAppartementsByBatimentId(batimentId)
+                _appartements.value = response
+
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
+            } finally {
+                _isLoading.value = false
+                println("Chargement des appartements du batiment selectionné terminé" + batimentId )
             }
         }
     }
