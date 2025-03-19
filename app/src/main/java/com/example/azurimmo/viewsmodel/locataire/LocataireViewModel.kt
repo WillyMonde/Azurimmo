@@ -2,6 +2,7 @@ package com.example.azurimmo.viewsmodel.locataire
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.azurimmo.api.RetrofitInstance
 import com.example.azurimmo.model.Locataire
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,17 +13,30 @@ class LocataireViewModel : ViewModel() {
     private val _locataires = MutableStateFlow<List<Locataire>>(emptyList())
     val locataires: StateFlow<List<Locataire>> = _locataires
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage
+
     init {
         getLocataires()
     }
 
     private fun getLocataires() {
         viewModelScope.launch {
-            _locataires.value = listOf(
-                Locataire(1, "Dupont", "Jean", "0601020304", "jean.dupont@mail.com"),
-                Locataire(2, "Martin", "Claire", "0605060708", "claire.martin@mail.com"),
-                Locataire(3, "Durand", "Luc", "0611121314", "luc.durand@mail.com")
-            )
+            _isLoading.value = true
+            _errorMessage.value = null  // Réinitialise l'erreur avant l'appel
+
+            try {
+                val response = RetrofitInstance.api.getLocataires()
+                _locataires.value = response
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est 		produite"}"
+            } finally {
+                _isLoading.value = false
+                println("Chargement terminé")
+            }
         }
     }
 }
