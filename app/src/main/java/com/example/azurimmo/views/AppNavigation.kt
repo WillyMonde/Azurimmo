@@ -20,17 +20,25 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         modifier = modifier
     ) {
         composable("batiments_list") {
-            BatimentList(navController = navController)
+            // Passer la navigation et la logique d'ajout de bâtiment
+            BatimentList(
+                navController = navController,
+                onBatimentClick = { batimentId ->
+                    navController.navigate("appartements_list/$batimentId")
+                },
+                onAddBatimentClick = {
+                    navController.navigate("add_batiment")
+                }
+            )
         }
 
+        // Route pour afficher les appartements associés à un bâtiment
         composable("appartements_list?batimentId={batimentId}") { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getString("batimentId")?.toIntOrNull()
             AppartementList(batimentId = batimentId)
         }
 
-        composable("appartements_list") {
-            AppartementList()
-        }
+        // D'autres destinations comme Contrat, Locataire, Paiement
         composable("contrats_list") {
             ContratList()
         }
@@ -39,6 +47,12 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
         composable("paiements_list") {
             PaiementList()
+        }
+
+        // La destination pour ajouter un bâtiment, qui sera définie dans le prochain chapitre
+        composable("add_batiment") {
+            // Ici tu peux afficher un formulaire pour ajouter un bâtiment
+            Text("Ajouter un bâtiment") // À remplacer par ton composable d'ajout
         }
     }
 }
