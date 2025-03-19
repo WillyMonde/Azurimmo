@@ -23,6 +23,9 @@ class BatimentViewModel : ViewModel() {
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
+    private val _batiment = MutableStateFlow<Batiment?>(null)
+    val batiment: StateFlow<Batiment?> = _batiment
+
     init {
         getBatiments()
     }
@@ -45,5 +48,21 @@ class BatimentViewModel : ViewModel() {
         }
     }
 
+    fun getBatiment(batimentId: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = null  // Réinitialise l'erreur avant l'appel
+
+            try {
+                val response = RetrofitInstance.api.getBatiment(batimentId)
+                _batiment.value = response.body()
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.localizedMessage ?: "Une erreur s'est produite"}"
+            } finally {
+                _isLoading.value = false
+                println("Chargement du batiment terminé")
+            }
+        }
+    }
 
 }

@@ -13,9 +13,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.azurimmo.viewsmodel.batiment.BatimentViewModel
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
 
 @Composable
-fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
+fun BatimentList(viewModel: BatimentViewModel = viewModel(), navController: NavController) {
     // Observer les données de manière réactive
     val batiments by viewModel.batiments.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -26,7 +27,7 @@ fun BatimentList(viewModel: BatimentViewModel = viewModel()) {
         errorMessage != null -> Text(text = errorMessage!!, color = Color.Red)
         else -> LazyColumn {
             items(batiments) { batiment ->
-                BatimentCard(batiment = batiment)
+                BatimentCard(batiment = batiment, navController = navController)
             }
         }
     }
