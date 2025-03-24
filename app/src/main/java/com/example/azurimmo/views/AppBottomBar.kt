@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Construction
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -26,7 +27,9 @@ fun AppBottomBar(navController: NavController) {
         BottomNavItem("Appts", "appartements_list", Icons.Filled.Home),
         BottomNavItem("Contrats", "contrats_list", Icons.Filled.Description),
         BottomNavItem("Locataires", "locataires_list", Icons.Filled.Person),
-        BottomNavItem("Paiements", "paiements_list", Icons.Filled.AttachMoney)
+        BottomNavItem("Paiements", "paiements_list", Icons.Filled.AttachMoney),
+        BottomNavItem("Reparation", "reparations_list", Icons.Filled.Construction )
+
     )
 
     var selectedItem by remember { mutableStateOf(0) }
