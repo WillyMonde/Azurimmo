@@ -5,6 +5,7 @@ import com.example.azurimmo.model.Appartement
 import com.example.azurimmo.model.Locataire
 import com.example.azurimmo.model.Contrat
 import com.example.azurimmo.model.Paiement
+import com.example.azurimmo.model.Reparation
 
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -31,4 +32,7 @@ interface ApiService {
 
     @GET("/paiements")
     suspend fun getPaiements(): List<Paiement>
+
+    @GET("/reparations")
+    suspend fun getReparations(): List<Reparation>
 }
