@@ -15,30 +15,30 @@ import retrofit2.http.Path
 
 interface ApiService {
 
-    @GET("/batiments")
+    @GET("batiments")
     suspend fun getBatiments(): List<Batiment>
 
-    @POST("/batiment")
+    @POST("batiment")
     suspend fun addBatiment(@Body batiment: Batiment): Response<Batiment>
 
-    @GET("/batiment/{id}")
+    @GET("batiment/{id}")
     suspend fun getBatiment(@Path("id") id: Int): retrofit2.Response<Batiment>
 
-    @GET("/appartement/batiment/{batimentId}")
+    @GET("appartement/batiment/{batimentId}")
     suspend fun getAppartementsByBatimentId(@Path("batimentId") batimentId: Int): List<Appartement>
 
-    @GET("/appartements")
+    @GET("appartements")
     suspend fun getAppartements(): List<Appartement>
 
-    @GET("/locataires")
+    @GET("locataires")
     suspend fun getLocataires(): List<Locataire>
 
-    @GET("/contrats")
+    @GET("contrats")
     suspend fun getContrats(): List<Contrat>
 
-    @GET("/paiements")
+    @GET("paiements")
     suspend fun getPaiements(): List<Paiement>
 
-    @GET("/reparations")
+    @GET("reparations")
     suspend fun getReparations(): List<Reparation>
 }

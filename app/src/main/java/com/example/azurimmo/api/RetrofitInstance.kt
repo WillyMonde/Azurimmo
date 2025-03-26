@@ -17,8 +17,8 @@ object RetrofitInstance {
         .registerTypeAdapter(LocalDate::class.java, localDateAdapter)
         .create()
 
-    private const val BASE_URL = "http://10.0.2.2:9006/"
-    //private const val BASE_URL = "http://172.20.177.251:8080/willyazurimmo/"
+    //private const val BASE_URL = "http://10.0.2.2:9006/"
+    private const val BASE_URL = "http://172.20.177.251:8080/willyazurimmo/"
     val api: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
