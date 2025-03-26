@@ -15,8 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 
 
 @Composable
@@ -26,6 +30,7 @@ fun BatimentList(
     onBatimentClick: (Int) -> Unit, // Cette fonction attend un paramètre Int
     onAddBatimentClick: () -> Unit
 ) {
+    // Observer les données de manière réactive
     val batiments by viewModel.batiments.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
@@ -53,11 +58,28 @@ fun BatimentList(
                 Text("Ajouter un bâtiment")
             }
 
-            // Affichage du contenu en fonction de l'état de chargement et d'erreur
             when {
-                isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-                errorMessage != null -> Text(text = errorMessage!!, color = Color.Red, modifier = Modifier.align(Alignment.CenterHorizontally))
+                isLoading -> CircularProgressIndicator()
+                errorMessage != null -> Text(text = errorMessage!!, color = Color.Red)
                 else -> LazyColumn {
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Liste des bâtiments",
+                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+
+                    }
+
                     items(batiments) { batiment ->
                         BatimentCard(batiment = batiment, navController = navController)
                     }
